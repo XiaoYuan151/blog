@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@fontsource/google-sans-code": "^5.2.3",
+    "@fontsource/noto-sans-sc": "^5.2.8",
+    "@nuxt/content": "^3.9.0",
+    "@nuxt/ui": "^4.2.1",
+    "@nuxt/ui-pro": "^3.3.7",
+    "better-sqlite3": "^12.5.0",
+    "highlight.js": "^11.11.1",
+    "nuxt": "^4.2.1",
+    "twikoo": "^1.6.44"
+  }
+}
