@@ -25,10 +25,6 @@ const tabs = [
     name: "关于",
   },
 ];
-useSeoMeta({
-  description: "1",
-  ogImage: "1",
-});
 onMounted(() => {
   document.title = "title";
   document.body.style.overflowY = "hidden";

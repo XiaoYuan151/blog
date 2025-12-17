@@ -3,15 +3,14 @@ const route = useRoute();
 const { data: page } = await useAsyncData("page-" + route.path, () => {
   return queryCollection("content").path(route.path).first();
 });
-useSeoMeta({
-  description: "1",
-  ogImage: "1",
-});
 onMounted(async () => {
   const twikoo = await import("twikoo");
   document.body.style.overflowY = "auto";
   if (page) {
     document.title = page.title;
+    useSeoMeta({
+      description: page.description,
+    });
   }
   if (location.hostname.endsWith(".cn")) {
     // cn.value = true;
