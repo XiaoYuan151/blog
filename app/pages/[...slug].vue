@@ -1,8 +1,12 @@
 <script setup>
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
+
 const route = useRoute();
 const { data: page } = await useAsyncData("page-" + route.path, () => {
   return queryCollection("content").path(route.path).first();
 });
+const cn = ref(false);
 onMounted(async () => {
   const twikoo = await import("twikoo");
   document.body.style.overflowY = "auto";
@@ -13,13 +17,16 @@ onMounted(async () => {
     });
   }
   if (location.hostname.endsWith(".cn")) {
-    // cn.value = true;
+    cn.value = true;
   }
   twikoo.init({
     envId: "https://twikoo.xiaoyuan151.net/.netlify/functions/twikoo",
     el: "#twikoo",
     path: location.pathname,
   });
+  setTimeout(() => {
+    hljs.highlightAll();
+  }, 200);
 });
 </script>
 
@@ -36,7 +43,7 @@ onMounted(async () => {
     <div class="content">
       <ContentRenderer v-if="page" :value="page" class="post" />
     </div>
-    <div id="twikoo"></div>
+    <div v-if="cn === false" id="twikoo"></div>
     <footer>
       <PageFooter
         v-if="page"

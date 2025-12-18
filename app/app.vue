@@ -1,13 +1,6 @@
 <script setup>
-import { onMounted } from "vue";
-import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
 import "@fontsource/noto-sans-sc/400.css";
 import "@fontsource/google-sans-code/400.css";
-
-onMounted(() => {
-  hljs.highlightAll();
-});
 </script>
 
 <template>
