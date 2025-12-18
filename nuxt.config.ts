@@ -40,6 +40,10 @@ export default defineNuxtConfig({
         { name: "twitter:creator", content: "@XiaoYuan151" },
       ],
     },
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
     rootAttrs: {
       id: "root",
     },

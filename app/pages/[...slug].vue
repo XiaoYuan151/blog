@@ -3,11 +3,18 @@ import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 
 const route = useRoute();
-const { data: page } = await useAsyncData("page-" + route.path, () => {
-  return queryCollection("content").path(route.path).first();
-});
+const { data: page } = await useAsyncData(
+  "page-" + route.path,
+  () => {
+    return queryCollection("content").path(route.path).first();
+  },
+  {
+    lazy: true,
+  },
+);
 const cn = ref(false);
 onMounted(async () => {
+  await nextTick();
   const twikoo = await import("twikoo");
   document.body.style.overflowY = "auto";
   if (page) {
@@ -19,14 +26,25 @@ onMounted(async () => {
   if (location.hostname.endsWith(".cn")) {
     cn.value = true;
   }
-  twikoo.init({
-    envId: "https://twikoo.xiaoyuan151.net/.netlify/functions/twikoo",
-    el: "#twikoo",
-    path: location.pathname,
-  });
-  setTimeout(() => {
-    hljs.highlightAll();
-  }, 200);
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(() => {
+      twikoo.init({
+        envId: "https://twikoo.xiaoyuan151.net/.netlify/functions/twikoo",
+        el: "#twikoo",
+        path: location.pathname,
+      });
+      hljs.highlightAll();
+    });
+  } else {
+    setTimeout(() => {
+      twikoo.init({
+        envId: "https://twikoo.xiaoyuan151.net/.netlify/functions/twikoo",
+        el: "#twikoo",
+        path: location.pathname,
+      });
+      hljs.highlightAll();
+    }, 1500);
+  }
 });
 </script>
 
