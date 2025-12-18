@@ -1,4 +1,5 @@
 <script setup>
+import { tabs } from "@/configs/tabs";
 import PageHeader from "@/components/PageHeader.vue";
 import PageSection from "@/components/PageSection.vue";
 import PageFooter from "@/components/PageFooter.vue";
@@ -6,30 +7,13 @@ import PageFooter from "@/components/PageFooter.vue";
 const { data: contents } = await useAsyncData("contents", () => {
   return queryCollection("content").order("date", "DESC").all();
 });
+const cn = ref(false);
 const tab = ref(0);
-const tabs = [
-  {
-    id: 0,
-    name: "文章",
-  },
-  {
-    id: 1,
-    name: "友链",
-  },
-  {
-    id: 2,
-    name: "归档",
-  },
-  {
-    id: 3,
-    name: "关于",
-  },
-];
 onMounted(() => {
   document.title = "title";
   document.body.style.overflowY = "hidden";
   if (location.hostname.endsWith(".cn")) {
-    // cn.value = true;
+    cn.value = true;
   }
 });
 </script>
@@ -38,10 +22,11 @@ onMounted(() => {
   <main>
     <header>
       <PageHeader
+        @tab="tab = $event"
         title="博客"
         subtitle_1="欢迎来到小源151官方博客！"
         subtitle_2="如对页面内容有任何疑问，请联系：<a href='mailto:contact@xiaoyuan151.com'>contact@xiaoyuan151.com</a>"
-        :list="tabs"
+        :list="tabs()"
       />
     </header>
     <div class="content">

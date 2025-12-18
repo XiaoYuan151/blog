@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "博客",
+      link: [{ href: "/favicon.png", rel: "icon", type: "image/png" }],
       meta: [
         { charset: "UTF-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1.0" },
